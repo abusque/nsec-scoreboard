@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    height: 100%;
+    font-size: 14px;
+}
+
+body {
+    background-color: white;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    @sidebar-width: 15rem;
+
+    height: 100%;
+
+    .top {
+        .border-box;
+    }
+
+    .sidebar-bg {
+        background-color: @color-light-grey;
+        position: fixed;
+        height: 100%;
+        top: 0;
+        left: 0;
+        z-index: -1000;
+    }
+
+    .sidebar {
+        float: left;
+    }
+
+    .sidebar,
+    .sidebar-bg {
+        width: @sidebar-width;
+        .border-box;
+    }
+
+    .contents-and-controls {
+        .border-box;
+        margin-left: @sidebar-width;
+    }
+}

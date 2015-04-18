@@ -1,0 +1,23 @@
+.container .top {
+    padding: @gutter;
+    background-color: darken(@color-base03, 5%);
+
+    h1 {
+        .font-title;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: @color-base2;
+        display: inline-block;
+    }
+
+    .settings {
+        .trans-all-ease(.1s);
+        float: right;
+        font-size: 1.3rem;
+        color: @color-base1;
+
+        &:hover {
+            color: lighten(@color-base1, 20%);
+        }
+    }
+}

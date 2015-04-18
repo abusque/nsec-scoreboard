@@ -1,0 +1,44 @@
+.border-radius(@rad) {
+    -webkit-border-radius: @rad;
+    -moz-border-radius: @rad;
+    border-radius: @rad;
+}
+
+.border-box {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.def-margin {
+    margin-top: @small-gutter;
+
+    &:first-child {
+        margin-top: 0;
+    }
+}
+
+.trans-all-ease(@len) {
+    -webkit-transition: all @len ease;
+    -moz-transition: all @len ease;
+    -ms-transition: all @len ease;
+    -o-transition: all @len ease;
+    transition: all @len ease;
+}
+
+.std-link {
+    .trans-all-ease(.1s);
+
+    &:link,
+    &:visited {
+        color: @color-blue;
+        text-decoration: none;
+    }
+
+    &:hover {
+        color: lighten(@color-blue, 20%);
+    }
+}
+
+body {
+    .font-std;
+}

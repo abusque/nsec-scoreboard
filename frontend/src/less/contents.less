@@ -1,0 +1,87 @@
+.container .contents-and-controls {
+    .contents {
+        .border-box;
+        width: 80%;
+        float: left;
+        padding: @gutter 0 @gutter @gutter;
+
+        .chart {
+            position: relative;
+            display: inline-block;
+            width: 80%;
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            .bar {
+                fill: @color-blue;
+            }
+
+            .background-bar {
+                fill: @color-light-grey;
+            }
+
+            .menu-item {
+                .font-std;
+                cursor: pointer;
+                text-decoration: underline;
+            }
+
+            #latency-chart, #size-chart {
+                .border-box;
+                width: 45%;
+                display: inline-block;
+            }
+        }
+
+        .legend-container {
+            display: inline-block;
+            width: 15%;
+
+            .legend {
+                overflow-y: auto;
+                overflow-x: auto;
+            }
+
+            .legend-item {
+                .font-std;
+                cursor: pointer;
+            }
+        }
+
+        .stats {
+            .font-std;
+            width: 80%;
+            display: inline-block;
+        }
+    }
+
+    .controls {
+        .border-box;
+        width: 20%;
+        float: right;
+        padding: @gutter;
+
+        .inner {
+            background-color: @color-light-grey;
+            padding: @gutter;
+
+            label {
+                display: block;
+                margin-top: @gutter;
+            }
+
+            #outliers-select {
+                margin-top: 0;
+            }
+
+            button {
+                display: block;
+                margin-top: @gutter;
+            }
+
+            input {
+                width: 100%;
+            }
+        }
+    }
+}
