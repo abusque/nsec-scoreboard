@@ -2,6 +2,7 @@ var Marionette = require("backbone.marionette"),
     NsecScoreboard = require("../nsecScoreboard.js"),
     // Views
     SidebarView = require("../views/sidebar"),
+    ScoreboardView = require("../views/scoreboard"),
     TeamView = require("../views/team"),
     FlagsView = require("../views/flags");
 
@@ -19,7 +20,7 @@ var NsecScoreboardController = Marionette.Controller.extend({
     },
 
     showScoreboard: function() {
-        // meh
+        NsecScoreboard.contents.show(new ScoreboardView());
     },
 
     showFlags: function() {

@@ -5,6 +5,28 @@
         float: left;
         padding: @gutter 0 @gutter @gutter;
 
+        /* Chart */
+        #bg-rect {
+            fill: #fff;
+        }
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: #000;
+            shape-rendering: crispEdges;
+        }
+
+        .line {
+            fill: none;
+            stroke: steelblue;
+            stroke-width: 2px;
+        }
+
+        .axis text {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 10px;
+        }
+
         .chart {
             position: relative;
             display: inline-block;

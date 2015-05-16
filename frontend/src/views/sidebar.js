@@ -5,19 +5,7 @@ var Backbone = require("backbone"),
 
 var SidebarView = Marionette.ItemView.extend({
     template: template,
-    tagName: "ul",
-
-    ui: {
-        links: "a"
-    },
-
-    events: {
-        "click @ui.links": "handleClick"
-    },
-
-    handleClick: function(e) {
-        console.log(e);
-    }
+    tagName: "ul"
 });
 
 module.exports = SidebarView;
