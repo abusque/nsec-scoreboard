@@ -2,7 +2,9 @@ var _ = require("underscore"),
     Backbone = require("backbone"),
     Marionette = require("backbone.marionette"),
     AskgodUrl = require("../config/askgodUrl"),
-    FlagView = require("./flag")
+    FlagView = require("./flag"),
+    ModalView = require("./modal"),
+    NsecScoreboard = require("../nsecScoreboard"),
     template = require("../../dist/templates").flags;
 
 var FlagsView = Marionette.CompositeView.extend({
@@ -46,21 +48,32 @@ var FlagsView = Marionette.CompositeView.extend({
     },
 
     handleFlagSuccess: function(response, status, jqXHR) {
-	for (var idx in response[0]) {
-	    var entry = response[0][idx];
-            console.log("Points: " + entry.value);
-	    if (entry.return_string) {
-                console.log(entry.return_string);
-	    }
+	var entry = response[0][0];
+        var message = "You scored " + entry.value + " points!";
+	if (entry.return_string) {
+            message += "<br/>" + entry.return_string;
 	}
+
+        var options = {
+            title: "Flag Submitted",
+            message: message
+        }
+
+        NsecScoreboard.modalContainer.show(new ModalView(options));
 
         this.ui.flagField.val("");
     },
 
     handleFlagError: function(jqXHR, status, error) {
-	var msg = error.msg;
-        msg = msg.slice(msg.indexOf(":") + 1);
-        console.warn(msg);
+        var message = error.message;
+        message = message.slice(message.indexOf(":") + 1);
+
+        var options = {
+            title: "Flag Failed",
+            message: message
+        }
+
+        NsecScoreboard.modalContainer.show(new ModalView(options));
 
         this.ui.flagField.val("");
     },

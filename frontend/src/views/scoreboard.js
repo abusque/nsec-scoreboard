@@ -47,8 +47,6 @@ var ScoreboardView = ChartView.extend({
             this.data[entry.teamid].push(entry);
         }
 
-        console.log(this.data);
-
         this.handleSync();
     },
 

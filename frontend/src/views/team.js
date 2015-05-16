@@ -1,5 +1,7 @@
 var _ = require("underscore"),
     Marionette = require("backbone.marionette"),
+    NsecScoreboard = require("../nsecScoreboard"),
+    ModalView = require("./modal"),
     template = require("../../dist/templates").team;
 
 var TeamView = Marionette.ItemView.extend({
@@ -92,11 +94,21 @@ var TeamView = Marionette.ItemView.extend({
     },
 
     handleSetSuccess: function(response, status, jqXHR) {
-        console.log("Team information set. Welcome to NSEC 2015");
+        var options = {
+            title: "Team Info Updated",
+            message: "Team information set. Welcome to NSEC 2015"
+        }
+
+        NsecScoreboard.modalContainer.show(new ModalView(options));
     },
 
     handleSetError: function(jqXHR, status, error) {
-        console.warn("Error: team information already set");
+        var options = {
+            title: "Error",
+            message: "Team information already set."
+        }
+
+        NsecScoreboard.modalContainer.show(new ModalView(options));
     }
 });
 

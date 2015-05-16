@@ -4,7 +4,8 @@ module.exports = function (grunt) {
         'd3',
         'underscore',
         'backbone',
-        'backbone.marionette'
+        'backbone.marionette',
+        'backbone.modal'
     ];
 
     grunt.initConfig({
