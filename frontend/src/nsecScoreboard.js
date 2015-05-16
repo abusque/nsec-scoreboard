@@ -23,7 +23,6 @@ var NsecScoreboard = new Marionette.Application({
 });
 
 NsecScoreboard.addRegions({
-    chartControls: ".controls .inner",
     contents: ".contents",
     sidebar: ".sidebar"
 });

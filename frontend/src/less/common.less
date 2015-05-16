@@ -39,6 +39,70 @@
     }
 }
 
+.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: @small-gutter;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.lbl-input {
+    display: block;
+}
+
+// Table Styling from Pure CSS
+table {
+    /* Remove spacing between table cells (from Normalize.css) */
+    border-collapse: collapse;
+    border-spacing: 0;
+    empty-cells: show;
+    border: 1px solid #cbcbcb;
+}
+
+td, th {
+    border-width: 0 0 0 1px;
+    font-size: inherit;
+    margin: 0;
+    overflow: visible; /*to make ths where the title is really long work*/
+    padding: 0.5em 1em; /* cell padding */
+}
+
+/* Consider removing this next declaration block, as it causes problems when
+there's a rowspan on the first cell. Case added to the tests. issue#432 */
+td:first-child,
+th:first-child {
+    border-left-width: 0;
+}
+
+tr:nth-child(2n-1) td {
+    background-color: @color-light-grey;
+}
+
+thead {
+    background-color: #e0e0e0;
+    color: #000;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+input {
+    display: block;
+    margin-bottom: @small-gutter;
+}
+
 body {
     .font-std;
+}
+
+h2 {
+    margin-bottom: @small-gutter;
 }
