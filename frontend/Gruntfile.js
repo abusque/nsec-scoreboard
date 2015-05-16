@@ -3,6 +3,7 @@ module.exports = function (grunt) {
     var vendors = [
         'd3',
         'underscore',
+        'jquery',
         'backbone',
         'backbone.marionette',
         'backbone.modal'
