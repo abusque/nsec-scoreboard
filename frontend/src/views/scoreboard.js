@@ -47,6 +47,16 @@ var ScoreboardView = ChartView.extend({
             this.data[entry.teamid].push(entry);
         }
 
+        var now = new Date();
+        // Add an entry at current time with current score, otherwise
+        // the graph stops at last flag entry
+        for(teamid in this.data) {
+            var teamArray = this.data[teamid];
+            var entry = teamArray[teamArray.length - 1];
+            entry.submit_time = now;
+            teamArray.push(entry);
+        }
+
         this.handleSync();
     },
 
