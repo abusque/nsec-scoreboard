@@ -15,7 +15,8 @@ var ScoreboardView = ChartView.extend({
         };
 
         this.startDate = new Date('05/15/2015');
-        this.endDate = new Date('05/17/2015');
+        this.endDate = new Date('05/19/2015');
+        this.color = d3.scale.category20();
 
         ChartView.prototype.initialize.call(this, options);
 
@@ -56,6 +57,10 @@ var ScoreboardView = ChartView.extend({
             entry.submit_time = now;
             teamArray.push(entry);
         }
+
+        // Set the domain for the color mapping, from team name to
+        // color
+        this.color.domain(d3.keys(this.data));
 
         this.handleSync();
     },
@@ -155,7 +160,7 @@ var ScoreboardView = ChartView.extend({
     },
 
     getStroke: function(d) {
-        return "chartreuse";
+        return this.color(d);
     },
 
     getPath: function(d) {
