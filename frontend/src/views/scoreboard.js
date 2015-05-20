@@ -121,7 +121,7 @@ var ScoreboardView = ChartView.extend({
         if(!this.graphInitialized) {
             this.initializeVisualisation();
         } else {
-            this.bins.data([]).exit().remove();
+            this.svg.selectAll(".team").remove();
         }
 
         this.drawGraph();
@@ -139,11 +139,7 @@ var ScoreboardView = ChartView.extend({
 
         this.drawBackground();
         this.initializeVisualisation();
-        if(this.bins) {
-            this.bins.data([]).exit().remove();
-        }
-        this.setBinSize();
-        this.z.domain([0, this.data.maxCount]);
+        this.svg.selectAll(".team").remove();
         this.drawGraph();
     },
 
