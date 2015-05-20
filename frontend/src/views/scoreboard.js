@@ -14,14 +14,16 @@ var ScoreboardView = ChartView.extend({
             left: 65
         };
 
-        this.startDate = new Date('05/15/2015');
-        this.endDate = new Date('05/19/2015');
+        this.startDate = new Date('05/22/2015 19:00:00');
+        this.endDate = new Date('05/25/2015');
         this.color = d3.scale.category20();
 
         ChartView.prototype.initialize.call(this, options);
 
         _.bindAll(this, "getStroke", "getPath", "getX", "getY",
-                  "handleScoresSucccess", "handleScoresError", "resizeGraph");
+                  "handleScoresSucccess", "handleScoresError",
+                  "handleTeamsSucccess", "handleTeamsError",
+                  "resizeGraph", "getTextDatum", "getTextPosition");
 
         d3.select(window).on("resize", this.resizeGraph);
         xmlrpc({
@@ -29,6 +31,13 @@ var ScoreboardView = ChartView.extend({
 	    methodName: 'scores_timeline',
 	    success: this.handleScoresSucccess,
 	    error: this.handleScoresError
+        });
+
+        xmlrpc({
+            url: AskgodUrl,
+	    methodName: 'scores_scoreboard',
+	    success: this.handleTeamsSucccess,
+	    error: this.handleTeamsError
         });
     },
 
@@ -71,7 +80,28 @@ var ScoreboardView = ChartView.extend({
         console.warn(msg);
     },
 
+    handleTeamsSucccess: function(response, status, jqXHR) {
+        this.teamsData = {};
+
+        for(var i = 0; i < response[0].length; ++i) {
+            entry = response[0][i];
+            this.teamsData[entry.teamid] = {
+                name: entry.team_name
+            };
+        }
+
+        this.handleSync();
+    },
+
+    handleTeamsError: function(jqXHR, status, error) {
+        var msg = error.msg;
+        msg = msg.slice(msg.indexOf(":") + 1);
+        console.warn(msg);
+    },
+
     handleSync: function() {
+        if(!this.data || !this.teamsData) return;
+
         if(!this.graphInitialized) {
             this.initGraph();
         }
@@ -153,6 +183,31 @@ var ScoreboardView = ChartView.extend({
             .attr("class", "line")
             .attr("d", this.getPath)
             .style("stroke", this.getStroke);
+
+        this.team.append("text")
+            .datum(this.getTextDatum)
+            .attr("transform", this.getTextPosition)
+            .attr("x", 3)
+            .attr("dy", ".35em")
+            .text(function(d) { return d.name; });
+    },
+
+    getTextDatum: function(d) {
+        var teamData = this.data[d];
+        var teamDatum = teamData[teamData.length - 1];
+
+        return {
+            name: this.teamsData[d].name,
+            submit_time: teamDatum.submit_time,
+            value: teamDatum.value
+        };
+
+        return d;
+    },
+
+    getTextPosition: function(d) {
+        return "translate(" + this.x(d.submit_time) + "," +
+            this.y(d.value) + ")";
     },
 
     getStroke: function(d) {
