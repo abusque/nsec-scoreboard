@@ -4,7 +4,7 @@ var _ = require("underscore"),
     ChartView = require("./chart");
 
 var ScoreboardView = ChartView.extend({
-    maxScore: 50,
+    maxScore: 150,
 
     initialize: function(options) {
         options.margin = {
