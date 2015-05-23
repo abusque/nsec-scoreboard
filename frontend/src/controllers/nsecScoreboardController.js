@@ -29,6 +29,19 @@ var NsecScoreboardController = Marionette.Controller.extend({
 
     showTeam: function() {
         NsecScoreboard.contents.show(new TeamView());
+    },
+
+    showPlain: function() {
+        this.clearPage();
+        this.showScoreboard();
+    },
+
+    clearPage: function() {
+        $(".sidebar-bg").remove();
+        $(".sidebar").remove();
+        $(".top").remove();
+        $(".sponsors").remove();
+        $(".contents-and-controls").css("margin-left", 0);
     }
 });
 

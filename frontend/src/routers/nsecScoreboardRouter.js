@@ -6,6 +6,7 @@ var NsecScoreboardRouter = Marionette.AppRouter.extend({
         "scores/": "showScoreboard",
         "flags/": "showFlags",
         "team/": "showTeam",
+        "plain/": "showPlain"
     }
 });
 
