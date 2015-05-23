@@ -174,7 +174,7 @@ var ScoreboardView = ChartView.extend({
     },
 
     drawData: function() {
-        this.team = this.svg.selectAll(".team")
+        this.team = this.dataGroup.selectAll(".team")
             .data(Object.keys(this.data))
             .enter().append("g")
             .attr("class", "team");
