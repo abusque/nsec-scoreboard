@@ -44,6 +44,9 @@ var ScoreboardView = ChartView.extend({
     handleScoresSucccess: function(response, status, jqXHR) {
         this.data = {};
 
+        // Sort subbed flags chronologically
+        response[0].sort(function(d) { return d.submit_time; });
+
         for(var i = 0; i < response[0].length; ++i) {
             entry = response[0][i];
             if(!this.data[entry.teamid]) {
