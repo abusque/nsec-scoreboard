@@ -19,8 +19,8 @@ var NsecScoreboardController = Marionette.Controller.extend({
         this.showScoreboard();
     },
 
-    showScoreboard: function() {
-        NsecScoreboard.contents.show(new VisualisationLayout());
+    showScoreboard: function(options) {
+        NsecScoreboard.contents.show(new VisualisationLayout(options));
     },
 
     showFlags: function() {
@@ -33,7 +33,9 @@ var NsecScoreboardController = Marionette.Controller.extend({
 
     showPlain: function() {
         this.clearPage();
-        this.showScoreboard();
+        this.showScoreboard({
+            noClipLegend: true
+        });
     },
 
     clearPage: function() {

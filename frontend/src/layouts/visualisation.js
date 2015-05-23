@@ -15,7 +15,7 @@ var VisualisationLayout = Marionette.LayoutView.extend({
         legend: ".legend",
     },
 
-    initialize: function() {
+    initialize: function(options) {
         this.listenTo(NsecScoreboard.vent, "showLegend", this.showLegend);
     },
 
@@ -24,6 +24,12 @@ var VisualisationLayout = Marionette.LayoutView.extend({
     },
 
     showLegend: function(options) {
+        if(!options) {
+            options = {};
+        }
+
+        options.noClipLegend = this.options.noClipLegend;
+
         this.legend.show(new TeamLegendView(options));
     }
 });

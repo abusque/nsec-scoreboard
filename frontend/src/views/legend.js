@@ -50,7 +50,6 @@ var LegendView = Marionette.ItemView.extend({
         this.color = d3.scale.category20();
         this.color.domain(this.domain);
         this.stroke = this.options.stroke || "none";
-
         var data = this.options.data;
         this.domain.sort(function(a, b) {
             var teamDataA = data[a];
@@ -119,6 +118,8 @@ var LegendView = Marionette.ItemView.extend({
     },
 
     setDivSize: function() {
+        if(this.options.noClipLegend) return;
+
         var chartHeight = d3.select(".chart").style("height");
         d3.select(".legend").style("height", chartHeight);
     },
