@@ -4,8 +4,6 @@ var _ = require("underscore"),
     ChartView = require("./chart");
 
 var ScoreboardView = ChartView.extend({
-    maxScore: 150,
-
     initialize: function(options) {
         options.margin = {
             top: 20,
@@ -14,8 +12,6 @@ var ScoreboardView = ChartView.extend({
             left: 65
         };
 
-        this.startDate = new Date('05/22/2015 19:00:00');
-        this.endDate = new Date('05/25/2015');
         this.color = d3.scale.category20();
 
         ChartView.prototype.initialize.call(this, options);
@@ -63,13 +59,27 @@ var ScoreboardView = ChartView.extend({
         }
 
         var now = new Date();
+        this.startDate = new Date(response[0][0].submit_time);
+        this.endDate = now;
+        var bestTeam = _.max(this.data, function(d) {
+            return d[d.length - 1].value;
+        });
+        this.maxScore = bestTeam[bestTeam.length -1].value;
+
         // Add an entry at current time with current score, otherwise
-        // the graph stops at last flag entry
+        // the graph stops at last flag entry. Also add entry with 0
+        // score at beginning of array so line doesn't start in midair
         for(teamid in this.data) {
             var teamArray = this.data[teamid];
-            var entry = teamArray[teamArray.length - 1];
-            entry.submit_time = now;
-            teamArray.push(entry);
+
+            var beginEntry = teamArray[0];
+            var endEntry = teamArray[teamArray.length - 1];
+
+            beginEntry.value = 0;
+            endEntry.submit_time = now;
+
+            teamArray.unshift(beginEntry);
+            teamArray.push(endEntry);
         }
 
         // Set the domain for the color mapping, from team name to
