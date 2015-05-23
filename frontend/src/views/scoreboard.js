@@ -23,7 +23,7 @@ var ScoreboardView = ChartView.extend({
         _.bindAll(this, "getStroke", "getPath", "getX", "getY",
                   "handleScoresSucccess", "handleScoresError",
                   "handleTeamsSucccess", "handleTeamsError",
-                  "resizeGraph", "getTextDatum", "getTextPosition");
+                  "resizeGraph");
 
         d3.select(window).on("resize", this.resizeGraph);
         xmlrpc({
@@ -104,6 +104,11 @@ var ScoreboardView = ChartView.extend({
 
         if(!this.graphInitialized) {
             this.initGraph();
+            var legendOptions = {
+                data: this.data,
+                teamsData: this.teamsData
+            };
+            NsecScoreboard.vent.trigger("showLegend", legendOptions);
         }
     },
 
@@ -183,31 +188,6 @@ var ScoreboardView = ChartView.extend({
             .attr("class", "line")
             .attr("d", this.getPath)
             .style("stroke", this.getStroke);
-
-        this.team.append("text")
-            .datum(this.getTextDatum)
-            .attr("transform", this.getTextPosition)
-            .attr("x", 3)
-            .attr("dy", ".35em")
-            .text(function(d) { return d.name; });
-    },
-
-    getTextDatum: function(d) {
-        var teamData = this.data[d];
-        var teamDatum = teamData[teamData.length - 1];
-
-        return {
-            name: this.teamsData[d].name,
-            submit_time: teamDatum.submit_time,
-            value: teamDatum.value
-        };
-
-        return d;
-    },
-
-    getTextPosition: function(d) {
-        return "translate(" + this.x(d.submit_time) + "," +
-            this.y(d.value) + ")";
     },
 
     getStroke: function(d) {

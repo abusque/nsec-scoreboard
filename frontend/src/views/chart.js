@@ -17,7 +17,7 @@ var ChartView = Marionette.ItemView.extend({
 
     initialize: function(options) {
         if(options.margin) this.margin = options.margin;
-        this.selector = options.selector || ".contents";
+        this.selector = options.selector || ".chart";
         this.setDimensions();
 
         this.setElement(d3.select(this.selector)
