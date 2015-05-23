@@ -4,6 +4,8 @@ var _ = require("underscore"),
     ChartView = require("./chart");
 
 var ScoreboardView = ChartView.extend({
+    refreshInterval: 60000,
+
     initialize: function(options) {
         options.margin = {
             top: 20,
@@ -19,9 +21,29 @@ var ScoreboardView = ChartView.extend({
         _.bindAll(this, "getStroke", "getPath", "getX", "getY",
                   "handleScoresSucccess", "handleScoresError",
                   "handleTeamsSucccess", "handleTeamsError",
-                  "resizeGraph");
+                  "resizeGraph", "refreshData");
 
         d3.select(window).on("resize", this.resizeGraph);
+        xmlrpc({
+            url: AskgodUrl,
+	    methodName: 'scores_timeline',
+	    success: this.handleScoresSucccess,
+	    error: this.handleScoresError
+        });
+
+        xmlrpc({
+            url: AskgodUrl,
+	    methodName: 'scores_scoreboard',
+	    success: this.handleTeamsSucccess,
+	    error: this.handleTeamsError
+        });
+
+        window.setInterval(this.refreshData, this.refreshInterval);
+    },
+
+    refreshData: function() {
+        this.graphInitialized = false;
+
         xmlrpc({
             url: AskgodUrl,
 	    methodName: 'scores_timeline',
