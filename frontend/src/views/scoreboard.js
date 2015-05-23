@@ -45,7 +45,9 @@ var ScoreboardView = ChartView.extend({
         this.data = {};
 
         // Sort subbed flags chronologically
-        response[0].sort(function(d) { return d.submit_time; });
+        response[0] = response[0].sort(function(a, b) {
+            return new Date(a.submit_time) - new Date(b.submit_time);
+        });
 
         for(var i = 0; i < response[0].length; ++i) {
             entry = response[0][i];
