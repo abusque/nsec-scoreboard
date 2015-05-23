@@ -52,9 +52,11 @@ var LegendView = Marionette.ItemView.extend({
         this.stroke = this.options.stroke || "none";
 
         var data = this.options.data;
-        this.domain.sort(function(d) {
-            var teamData = data[d];
-            return teamData[teamData.length - 1].value;
+        this.domain.sort(function(a, b) {
+            var teamDataA = data[a];
+            var teamDataB = data[b];
+            return teamDataB[teamDataB.length - 1].value -
+                teamDataA[teamDataA.length - 1].value;
         });
 
         _.bindAll(this, "fill", "getRectX", "getTextX", "resize",
