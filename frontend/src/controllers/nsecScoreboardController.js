@@ -34,7 +34,8 @@ var NsecScoreboardController = Marionette.Controller.extend({
     showPlain: function() {
         this.clearPage();
         this.showScoreboard({
-            noClipLegend: true
+            noClipLegend: true,
+            autoUpdate: true
         });
     },
 

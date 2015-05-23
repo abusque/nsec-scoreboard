@@ -38,7 +38,9 @@ var ScoreboardView = ChartView.extend({
 	    error: this.handleTeamsError
         });
 
-        window.setInterval(this.refreshData, this.refreshInterval);
+        if(this.options.autoUpdate) {
+            window.setInterval(this.refreshData, this.refreshInterval);
+        }
     },
 
     refreshData: function() {

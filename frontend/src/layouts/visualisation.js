@@ -20,7 +20,11 @@ var VisualisationLayout = Marionette.LayoutView.extend({
     },
 
     onShow: function() {
-        this.chart.show(new ScoreboardView());
+        var options = {
+            autoUpdate: this.options.autoUpdate
+        };
+
+        this.chart.show(new ScoreboardView(options));
     },
 
     showLegend: function(options) {
