@@ -165,7 +165,7 @@ var ScoreboardView = ChartView.extend({
             .range([this.height, 0]);
 
         this.line = d3.svg.line()
-            .interpolate("step")
+            .interpolate("step-after")
             .x(this.getX)
             .y(this.getY);
     },
