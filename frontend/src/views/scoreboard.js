@@ -39,8 +39,13 @@ var ScoreboardView = ChartView.extend({
         });
 
         if(this.options.autoUpdate) {
-            window.setInterval(this.refreshData, this.refreshInterval);
+            this.intervalId = window.setInterval(this.refreshData,
+                                                 this.refreshInterval);
         }
+    },
+
+    onDestroy: function() {
+        window.clearInterval(this.intervalId);
     },
 
     refreshData: function() {
