@@ -88,7 +88,9 @@ var ScoreboardView = ChartView.extend({
         var bestTeam = _.max(this.data, function(d) {
             return d[d.length - 1].value;
         });
-        this.maxScore = bestTeam[bestTeam.length -1].value;
+
+        // Multiply by 1.1 to add a 10% margin on y axis
+        this.maxScore = bestTeam[bestTeam.length - 1].value * 1.1;
 
         // Add an entry at current time with current score, otherwise
         // the graph stops at last flag entry. Also add entry with 0
@@ -99,11 +101,16 @@ var ScoreboardView = ChartView.extend({
             var beginEntry = teamArray[0];
             var endEntry = teamArray[teamArray.length - 1];
 
-            beginEntry.value = 0;
-            endEntry.submit_time = now;
-
-            teamArray.unshift(beginEntry);
-            teamArray.push(endEntry);
+            teamArray.unshift({
+                teamid: teamid,
+                submit_time: beginEntry.submit_time,
+                value: 0
+            });
+            teamArray.push({
+                teamid: teamid,
+                submit_time: now,
+                value: endEntry.value
+            });
         }
 
         // Set the domain for the color mapping, from team name to
@@ -167,7 +174,7 @@ var ScoreboardView = ChartView.extend({
             .range([this.height, 0]);
 
         this.line = d3.svg.line()
-            .interpolate("step-after")
+            .interpolate("step-before")
             .x(this.getX)
             .y(this.getY);
     },
