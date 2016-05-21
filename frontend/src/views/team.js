@@ -96,7 +96,7 @@ var TeamView = Marionette.ItemView.extend({
     handleSetSuccess: function(response, status, jqXHR) {
         var options = {
             title: "Team Info Updated",
-            message: "Team information set. Welcome to NSEC 2015"
+            message: "Team information set. Welcome to NSEC 2016"
         }
 
         NsecScoreboard.modalContainer.show(new ModalView(options));
